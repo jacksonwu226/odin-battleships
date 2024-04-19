@@ -1,14 +1,19 @@
-export default class Ship{
-  constructor(health){
-    this.hitPoints  = health;
+export default class Ship {
+  constructor(length) {
+    // coordinates.length should equal length
+    this.hitPoints = length;
+    this.hits = new Set();
   }
 
-  hit(){
-    if(this.hitPoints > 0)
-      this.hitPoints -=1;
+  get length() {
+    return this.hitPoints;
   }
 
-  isSunk(){
-    return this.hitPoints === 0;
+  hit(coord) {
+    this.hits.add(coord.toString());
+  }
+
+  isSunk() {
+    return this.hits.size === this.hitPoints;
   }
 }

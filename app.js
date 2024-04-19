@@ -1,8 +1,7 @@
-
 function initializeDropdowns() {
   const dropdowns = document.querySelectorAll(".dropdown");
 
-  dropdowns.forEach(dropdown => {
+  dropdowns.forEach((dropdown) => {
     const toggleButton = dropdown.querySelector(".dropdown-toggle");
     const menu = dropdown.querySelector(".dropdown-menu");
 
@@ -15,4 +14,4 @@ function initializeDropdowns() {
     });
   });
 }
-initializeDropdowns()
+initializeDropdowns();
