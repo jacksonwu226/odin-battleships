@@ -60,7 +60,7 @@ export default class Gameboard {
   // places the ship in the position if valid
   placeShip(ship, row, col, isVertical) {
     if (!this.isValidPlacement(ship.length, row, col, isVertical)) {
-      return;
+      return false;
     }
     this._ships.push(ship);
     if (isVertical) {
@@ -72,6 +72,7 @@ export default class Gameboard {
         this._grid[row][col + i] = ship;
       }
     }
+    return true;
   }
 
   // checks to see if the ship placement is valid, ie there is space

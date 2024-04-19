@@ -51,7 +51,8 @@ describe("Gameboard placeship vertical", () => {
   });
   test("placing a ship at an out-of-bounds coordinate", () => {
     // Attempt to place a ship at an out-of-bounds coordinate
-    gameboard.placeShip(ship1, 6, 6, true); // Assuming 6, 6 is out of bounds
+    const result = gameboard.placeShip(ship1, 6, 6, true); // Assuming 6, 6 is out of bounds
+    expect(result).toBeFalsy();
     // Expect the grid to remain unchanged
     expect(gameboard.grid).toEqual([
       [0, 0, 0, 0, 0],
@@ -62,7 +63,8 @@ describe("Gameboard placeship vertical", () => {
     ]);
   });
   test("placing a ship at (0,0)", () => {
-    gameboard.placeShip(ship1, 0, 0, true);
+    const result  = gameboard.placeShip(ship1, 0, 0, true);
+    expect(result).toBeTruthy();
     expect(gameboard.grid[0][0]).not.toBe(ship11);
     expect(gameboard.grid[0][0]).toBe(ship1);
   });
@@ -87,8 +89,8 @@ describe("Gameboard placeship horizontal", () => {
     ship2 = new Ship(2);
   });
   test("placing a ship at an out-of-bounds coordinate", () => {
-    gameboard.placeShip(ship1, 6, 6, false);
-    // Expect the grid to remain unchanged
+    const result = gameboard.placeShip(ship1, 6, 6, false); // Assuming 6, 6 is out of bounds
+    expect(result).toBeFalsy();    // Expect the grid to remain unchanged
     expect(gameboard.grid).toEqual([
       [0, 0, 0, 0, 0],
       [0, 0, 0, 0, 0],
@@ -98,7 +100,8 @@ describe("Gameboard placeship horizontal", () => {
     ]);
   });
   test("placing a ship at (0,0)", () => {
-    gameboard.placeShip(ship1, 0, 0, false);
+    const result = gameboard.placeShip(ship1, 0, 0, false);
+    expect(result).toBeTruthy();
     expect(gameboard.grid[0][0]).not.toBe(ship11);
     expect(gameboard.grid[0][0]).toBe(ship1);
   });
