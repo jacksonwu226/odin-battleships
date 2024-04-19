@@ -47,6 +47,10 @@ export default class Gameboard {
   get isAllShipsSunk() {
     return this._ships.every(ship => ship.isSunk());
   }
+
+  get isAllAttacked() {
+    return this._attacked.every(arr => arr.every(val => val === true));
+  }
   
   // places the ship in the position if valid
   placeShip(ship, row, col, isVertical) {
