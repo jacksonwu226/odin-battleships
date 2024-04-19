@@ -3,10 +3,17 @@ import Ship from "../src/modules/ship";
 
 describe("Gameboard setup", () => {
   let gameboard;
-
   beforeEach(() => {
-    gameboard = new Gameboard(3, 4); // Example: 3x3 gameboard
+    gameboard = new Gameboard(3, 4); // Example: 3x4 gameboard
   });
+  test("gameboard with no row/col inputs", () => {
+    const gameboard0 = new Gameboard();
+    expect(gameboard0.grid.length).toBe(10);
+    expect(gameboard0.grid[0].length).toBe(10);
+  })
+  test("Creating a gameboard with negative dimensions throws an error", () => {
+    expect(()=> new Gameboard(-1,-1)).toThrowError("Invalid dimensions");
+  })
 
   test("Gameboard initializes with correct dimensions", () => {
     expect(gameboard.grid.length).toBe(3);

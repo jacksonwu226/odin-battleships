@@ -1,12 +1,19 @@
 import Ship from "./ship";
 
 export default class Gameboard {
-  constructor(row, col) {
+  constructor(row=10, col=10) {
+    this.checkDimensions(row, col);
     this.ships = [];
     this.rows = row;
     this.cols = col;
     this.board = Array.from({ length: row }, () => Array(col).fill(0));
     this.visited =  Array.from({ length: row }, () => Array(col).fill(false));
+  }
+
+  checkDimensions(row,col){
+    if(row < 0 || col < 0){
+      throw new Error("Invalid dimensions: Length and height must be greater than 0")
+    }
   }
 
   get grid() {
@@ -77,6 +84,7 @@ export default class Gameboard {
     return row >= 0 && row < this.rows && col >= 0 && col < this.cols;
   }
 
+  // this function receives an attack
   receiveAttack(row, col) {
     this.visited[row][col] = true;
     if (this.board[row][col] instanceof Ship) {
