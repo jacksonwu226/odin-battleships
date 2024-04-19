@@ -36,4 +36,8 @@ export default class Player {
   attack(enemyBoard, row, col) {
     return enemyBoard.receiveAttack(row, col);
   }
+
+  placeShip(ship, row, col, isVertical) {
+    return this._gameBoard.placeShip(ship,row,col,isVertical);
+  }
 }
