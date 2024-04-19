@@ -9,17 +9,17 @@ describe("Gameboard setup", () => {
   test("gameboard get rows", () => {
     expect(gameboard.rows).toBe(3);
   });
-  test("gameboard get cols", () =>{
+  test("gameboard get cols", () => {
     expect(gameboard.cols).toBe(4);
   });
   test("gameboard with no row/col inputs", () => {
     const gameboard0 = new Gameboard();
     expect(gameboard0.grid.length).toBe(10);
     expect(gameboard0.grid[0].length).toBe(10);
-  })
+  });
   test("Creating a gameboard with negative dimensions throws an error", () => {
-    expect(()=> new Gameboard(-1,-1)).toThrowError("Invalid dimensions");
-  })
+    expect(() => new Gameboard(-1, -1)).toThrowError("Invalid dimensions");
+  });
 
   test("Gameboard initializes with correct dimensions", () => {
     expect(gameboard.grid.length).toBe(3);
@@ -115,13 +115,13 @@ describe("Gameboard placeship horizontal", () => {
 describe("Gameboard receiveAttacks function", () => {
   let gameboard;
   let ship;
-  beforeAll(()=>{
-    gameboard = new Gameboard(5,5);
+  beforeAll(() => {
+    gameboard = new Gameboard(5, 5);
     ship = new Ship(3);
     gameboard.placeShip(ship, 0, 0, true);
-  })
+  });
   test("Ship([0,2], 0) receiving attack at (0,0) - hit", () => {
-    gameboard.receiveAttack(0,0)
+    gameboard.receiveAttack(0, 0);
     expect(gameboard.grid).toEqual([
       [ship, 0, 0, 0, 0],
       [ship, 0, 0, 0, 0],
@@ -134,11 +134,11 @@ describe("Gameboard receiveAttacks function", () => {
       [false, false, false, false, false],
       [false, false, false, false, false],
       [false, false, false, false, false],
-      [false, false, false, false, false]
+      [false, false, false, false, false],
     ]);
-  })
+  });
   test("Ship([0,2], 0) receiving attack at (1,0) - hit", () => {
-    gameboard.receiveAttack(1,0)
+    gameboard.receiveAttack(1, 0);
     expect(gameboard.grid).toEqual([
       [ship, 0, 0, 0, 0],
       [ship, 0, 0, 0, 0],
@@ -151,11 +151,11 @@ describe("Gameboard receiveAttacks function", () => {
       [true, false, false, false, false],
       [false, false, false, false, false],
       [false, false, false, false, false],
-      [false, false, false, false, false]
+      [false, false, false, false, false],
     ]);
-  })
+  });
   test("Ship([0,2], 0) receiving attack at (1,1) - miss", () => {
-    gameboard.receiveAttack(1,1)
+    gameboard.receiveAttack(1, 1);
     expect(gameboard.grid).toEqual([
       [ship, 0, 0, 0, 0],
       [ship, 0, 0, 0, 0],
@@ -168,52 +168,52 @@ describe("Gameboard receiveAttacks function", () => {
       [true, true, false, false, false],
       [false, false, false, false, false],
       [false, false, false, false, false],
-      [false, false, false, false, false]
+      [false, false, false, false, false],
     ]);
-  })
+  });
 });
 
 describe("Gameboard missedAttackCount is isAllShipsSunk function", () => {
   let gameboard;
   let ship;
-  beforeAll(()=>{
-    gameboard = new Gameboard(5,5);
+  beforeAll(() => {
+    gameboard = new Gameboard(5, 5);
     ship = new Ship(3);
     gameboard.placeShip(ship, 0, 0, true);
-  })
+  });
   test("Ship([0,2], 0) receiving attack at (0,0) - hit, ship alive", () => {
-    gameboard.receiveAttack(0,0)
+    gameboard.receiveAttack(0, 0);
     expect(gameboard.missedAttackCount).toBe(0);
     expect(gameboard.isAllShipsSunk).toBe(false);
-  })
+  });
   test("Ship([0,2], 0) receiving attack at (1,0) - hit, ship alive", () => {
-    gameboard.receiveAttack(1,0)
+    gameboard.receiveAttack(1, 0);
     expect(gameboard.isAllShipsSunk).toBe(false);
     expect(gameboard.missedAttackCount).toBe(0);
-  })
+  });
   test("Ship([0,2], 0) receiving attack at (1,0) twice, no increase in miss", () => {
-    gameboard.receiveAttack(1,0)
+    gameboard.receiveAttack(1, 0);
     expect(gameboard.isAllShipsSunk).toBe(false);
     expect(gameboard.missedAttackCount).toBe(0);
-  })
+  });
   test("Ship([0,2], 0) receiving attack at (1,1) - miss, ship alive", () => {
-    gameboard.receiveAttack(1,1);
+    gameboard.receiveAttack(1, 1);
     expect(gameboard.isAllShipsSunk).toBe(false);
     expect(gameboard.missedAttackCount).toBe(1);
-  })
+  });
   test("Ship([0,2], 0) receiving attack at (1,2) - miss, ship alive", () => {
-    gameboard.receiveAttack(1,2);
+    gameboard.receiveAttack(1, 2);
     expect(gameboard.isAllShipsSunk).toBe(false);
     expect(gameboard.missedAttackCount).toBe(2);
-  })
+  });
   test("Ship([0,2], 0) receiving attack at (1,2) second time - miss, ship alive", () => {
-    gameboard.receiveAttack(1,2);
+    gameboard.receiveAttack(1, 2);
     expect(gameboard.isAllShipsSunk).toBe(false);
     expect(gameboard.missedAttackCount).toBe(2);
-  })
+  });
   test("Ship([0,2], 0) receiving attack at (0,2) - hit, all ships sunk ", () => {
-    gameboard.receiveAttack(2,0);
+    gameboard.receiveAttack(2, 0);
     expect(gameboard.missedAttackCount).toBe(2);
     expect(gameboard.isAllShipsSunk).toBe(true);
-  })
+  });
 });

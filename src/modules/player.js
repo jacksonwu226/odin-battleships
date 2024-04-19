@@ -1,16 +1,16 @@
 import Gameboard from "./gameboard";
 
-export default class Player{
-  constructor(name = "Player"){
+export default class Player {
+  constructor(name = "Player") {
     this._name = name;
     this._gameBoard = new Gameboard();
   }
 
-  get board(){
+  get board() {
     return this._gameBoard;
   }
 
-  set board(board){
+  set board(board) {
     this._gameBoard = board;
     this.rows = board.rows;
     this.cols = board.cols;
@@ -20,20 +20,20 @@ export default class Player{
     return this._name;
   }
 
-  set name(name){
+  set name(name) {
     this._name = name;
   }
 
-  randomAttack(enemyBoard){
+  randomAttack(enemyBoard) {
     let row;
     let col;
-    do{
+    do {
       row = Math.floor(Math.random() * enemyBoard.rows);
       col = Math.floor(Math.random() * enemyBoard.cols);
-    }while(!this.attack(enemyBoard, row, col)  && !enemyBoard.isAllAttacked)
+    } while (!this.attack(enemyBoard, row, col) && !enemyBoard.isAllAttacked);
   }
 
-  attack(enemyBoard, row, col){
-    return enemyBoard.receiveAttack(row,col);
+  attack(enemyBoard, row, col) {
+    return enemyBoard.receiveAttack(row, col);
   }
-};
+}

@@ -1,18 +1,20 @@
 import Ship from "./ship";
 
 export default class Gameboard {
-  constructor(row=10, col=10) {
+  constructor(row = 10, col = 10) {
     this.checkDimensions(row, col);
     this._ships = [];
     this._rows = row;
     this._cols = col;
     this._grid = Array.from({ length: row }, () => Array(col).fill(0));
-    this._attacked =  Array.from({ length: row }, () => Array(col).fill(false));
+    this._attacked = Array.from({ length: row }, () => Array(col).fill(false));
   }
 
-  checkDimensions(row,col){
-    if(row < 0 || col < 0){
-      throw new Error("Invalid dimensions: Length and height must be greater than 0")
+  checkDimensions(row, col) {
+    if (row < 0 || col < 0) {
+      throw new Error(
+        "Invalid dimensions: Length and height must be greater than 0",
+      );
     }
   }
 
@@ -20,11 +22,11 @@ export default class Gameboard {
     return this._grid;
   }
 
-  get attacked(){
+  get attacked() {
     return this._attacked;
   }
 
-  get rows(){
+  get rows() {
     return this._rows;
   }
 
@@ -32,12 +34,15 @@ export default class Gameboard {
     return this._cols;
   }
 
-  get missedAttackCount(){
+  get missedAttackCount() {
     let count = 0;
-    for(let i = 0; i < this._rows; i += 1){
-      for(let j = 0; j < this._cols; j += 1){
-        if(!(this._grid[i][j] instanceof Ship) && this._attacked[i][j] === true){
-          count +=1;
+    for (let i = 0; i < this._rows; i += 1) {
+      for (let j = 0; j < this._cols; j += 1) {
+        if (
+          !(this._grid[i][j] instanceof Ship) &&
+          this._attacked[i][j] === true
+        ) {
+          count += 1;
         }
       }
     }
@@ -45,13 +50,13 @@ export default class Gameboard {
   }
 
   get isAllShipsSunk() {
-    return this._ships.every(ship => ship.isSunk());
+    return this._ships.every((ship) => ship.isSunk());
   }
 
   get isAllAttacked() {
-    return this._attacked.every(arr => arr.every(val => val === true));
+    return this._attacked.every((arr) => arr.every((val) => val === true));
   }
-  
+
   // places the ship in the position if valid
   placeShip(ship, row, col, isVertical) {
     if (!this.isValidPlacement(ship.length, row, col, isVertical)) {
@@ -73,7 +78,10 @@ export default class Gameboard {
   isValidPlacement(length, row, col, isVertical) {
     if (isVertical) {
       for (let i = 0; i < length; i += 1) {
-        if (this.isValidCoord(row + i, col) && !(this._grid[row + i][col] instanceof Ship)) {
+        if (
+          this.isValidCoord(row + i, col) &&
+          !(this._grid[row + i][col] instanceof Ship)
+        ) {
           continue;
         } else {
           return false;
@@ -81,7 +89,10 @@ export default class Gameboard {
       }
     } else {
       for (let i = 0; i < length; i += 1) {
-        if (this.isValidCoord(row, col + i) && !(this._grid[row][col + i] instanceof Ship)) {
+        if (
+          this.isValidCoord(row, col + i) &&
+          !(this._grid[row][col + i] instanceof Ship)
+        ) {
           continue;
         } else {
           return false;
@@ -98,7 +109,7 @@ export default class Gameboard {
 
   // this function receives an attack
   receiveAttack(row, col) {
-    if(!this.isValidCoord(row,col) || this._attacked[row][col]){
+    if (!this.isValidCoord(row, col) || this._attacked[row][col]) {
       return false;
     }
     this._attacked[row][col] = true;
