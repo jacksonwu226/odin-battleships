@@ -4,9 +4,11 @@ const path = require("path");
 module.exports = {
   mode: "development",
   entry: {
-    index: "src/modules/index.js",
-    ship: "src/modules/ship.js",
-    gameboard: "src/modules/gameboard.js",
+    index: "./src/modules/index.js",
+    ship: "./src/modules/ship.js",
+    gameboard: "./src/modules/gameboard.js",
+    gamecontroller: "./src/modules/gameController.js",
+    mastercontroller: "./src/modules/masterController.js"
   },
   devtool: "inline-source-map",
   devServer: {
