@@ -63,13 +63,17 @@ export default class UI{
 
   renderName(player, playerContainer){
     const nameContainer = playerContainer.querySelector(".name-container");
+    this.clearContent(nameContainer);
     const name = document.createElement("p");
     name.classList.add("name");
     name.textContent = player.name;
     nameContainer.appendChild(name);
   }
 
-  renderPlayerBoard(player, boardContainer){
+  renderPlayerBoard(player, playerContainer){
+    const boardContainer = playerContainer.querySelector(".board-container");
+    this.clearContent(boardContainer);
+
     const boardGrid = document.createElement("div");
     boardGrid.classList.add("board-grid");
 
@@ -81,6 +85,7 @@ export default class UI{
         colDom.setAttribute("data-row", row); // Set data attribute for row
         colDom.setAttribute("data-col", col); // Set data attribute for column
         colDom.classList.add("cols");
+
         if(player.board.grid[row][col] instanceof Ship){
           colDom.classList.add("ship");
         }
@@ -92,5 +97,11 @@ export default class UI{
       boardGrid.appendChild(rowDom);    
     }
     boardContainer.appendChild(boardGrid);
+  }
+
+  clearContent(node){
+    while(node.firstChild){
+      node.removeChild(node.firstChild)
+    }
   }
 }

@@ -6,13 +6,10 @@ import UI from "./ui";
 export default class GameController{
   constructor(player1Name="Player1", player2Name="NPC"){
     this.players = [new Player(player1Name), new Player(player2Name)];
-    this.activePlayer = this.players[0];
+    this._activePlayer = this.players[0];
+    this._nonActivePlayer = this.players[1];
     this.placeShips(this.players[0]);
     this.placeShips(this.players[1]);
-  }
-
-  switchPlayerTurn(){
-    this.activePlayer = this.activePlayer === this.players[0] ? this.players[1] : this.players[0]; 
   }
 
   get player1(){
@@ -21,6 +18,10 @@ export default class GameController{
 
   get player2(){
     return this.players[1];
+  }
+
+  get activePlayer(){
+    return this.activePlayer;
   }
 
   generateShips(){
@@ -46,6 +47,25 @@ export default class GameController{
     for (const shipType in ships) {
       player.placeShip(ships[shipType] , row+i, col, false);
       i += 1;
+    }
+  }
+
+  playRound(row,col){
+    this._nonActivePlayer.board.receiveAttack(row,col);
+    this.changePlayer();
+  }
+
+  isGameOver(){
+    return this._nonActivePlayer.board.isAllShipsSunk;
+  }
+
+  changePlayer(){
+    if(this._activePlayer === this.players[0]){
+      this._activePlayer = this.players[1];
+      this._nonActivePlayer = this.players[0];
+    }else{
+      this._activePlayer = this.players[0];
+      this._nonActivePlayer = this.players[1];
     }
   }
 
