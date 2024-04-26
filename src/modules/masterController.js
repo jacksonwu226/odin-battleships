@@ -25,11 +25,15 @@ export default class MasterController{
   }
 
   handleEnemyBoardClick(row,col){
+
+    if(!this.gameController.isGameOver()){
     this.gameController.playRound(row,col);
-    if(this.gameController.isGameOver()){
-      console.log("game over");
-    }
-    this.uiController.renderPlayer(this.gameController.player1, true);
     this.uiController.renderPlayer(this.gameController.player2, false);
+    }
+    if(!this.gameController.isGameOver()){
+      this.gameController.playRandomRound();
+      this.uiController.renderPlayer(this.gameController.player1, true);  
+    }
+
   }
 }

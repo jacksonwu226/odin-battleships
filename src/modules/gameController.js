@@ -21,7 +21,7 @@ export default class GameController{
   }
 
   get activePlayer(){
-    return this.activePlayer;
+    return this._activePlayer;
   }
 
   generateShips(){
@@ -55,18 +55,19 @@ export default class GameController{
     this.changePlayer();
   }
 
+  playRandomRound(){
+    this.activePlayer.randomAttack(this._nonActivePlayer.board);
+    this.changePlayer();
+  }
+
   isGameOver(){
-    return this._nonActivePlayer.board.isAllShipsSunk;
+    return this._nonActivePlayer.board.isAllShipsSunk || this._activePlayer.board.isAllShipsSunk;
   }
 
   changePlayer(){
-    if(this._activePlayer === this.players[0]){
-      this._activePlayer = this.players[1];
-      this._nonActivePlayer = this.players[0];
-    }else{
-      this._activePlayer = this.players[0];
-      this._nonActivePlayer = this.players[1];
-    }
+    const tempPlayer = this._activePlayer;
+    this._activePlayer = this._nonActivePlayer;
+    this._nonActivePlayer = tempPlayer;
   }
 
 }
